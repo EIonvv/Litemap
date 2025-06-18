@@ -1,6 +1,6 @@
 {
   "name": "litemap",
-  "version": "1.20.0",
+  "version": "1.37.0",
   "description": "A TypeScript library for mapping and processing data with SQLite integration",
   "main": "build/main.js",
   "types": "build/main.d.ts",
@@ -30,5 +30,9 @@
     "@types/node": "^24.0.3",
     "@types/sqlite3": "^5.1.0",
     "typescript": "^5.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EIonvv/litemap.git"
   }
 }

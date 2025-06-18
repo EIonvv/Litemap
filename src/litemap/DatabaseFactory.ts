@@ -1,10 +1,10 @@
-import UserDatabaseManager from "./UserDatabaseManager";
+import UserDatabaseManager from "./DatabaseManager/UserDatabaseManager";
 
 class DatabaseFactory {
   // Map to store database managers by filename
   private static instances: Map<string, UserDatabaseManager> = new Map();
 
-  static Instance(filename: string = "./db/database.db"): UserDatabaseManager {
+  static Instance(filename: string = "./db/litemap.db"): UserDatabaseManager {
     if (!filename) {
       throw new Error("Database filename must be provided");
     }

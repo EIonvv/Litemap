@@ -1,13 +1,11 @@
 # Litemap
 
+A lightweight, persistent key-value database for Node.js, designed for simple user and item storage with SQLite as the backend. Litemap provides an easy-to-use API for managing users, items, and other records, making it ideal for bots, and other various apps.
 
 ## Usage
 ```js
 const { DatabaseFactory } = require("litemap");
 const fs = require("fs/promises");
-
-// if you want to update the user.name, role, or email, you can do so at the main.d.ts of litemap 
-// node_modules/litemap/build/main.d.ts => IUserRecord
 
 (async () => {
   await fs.mkdir("./db", { recursive: true });
@@ -41,5 +39,18 @@ const fs = require("fs/promises");
     });
   }
 })();
+```
 
+## Exports
+
+```js
+const { DatabaseFactory, SQLiteDatabase, UserDatabaseManager } = require("litemap");
+```
+
+## Types
+
+You can import types for TypeScript:
+
+```ts
+import type { IUserRecord, UserRecord } from "litemap";
 ```

@@ -1,8 +1,7 @@
-import fs from "fs/promises";
-import DatabaseFactory from "./DatabaseFactory";
-import SQLiteDatabase from "./SQLiteDatabase";
-import UserDatabaseManager from "./UserDatabaseManager";
-import { IUserRecord, UserRecord } from "./types";
+import DatabaseFactory from "./litemap/DatabaseFactory";
+import SQLiteDatabase from "./litemap/SQLitedb/SQLiteDatabase";
+import UserDatabaseManager from "./litemap/DatabaseManager/UserDatabaseManager";
+import { IUserRecord, UserRecord } from "./litemap/type/types";
 
 /* 
 // Example usage with multiple databases
@@ -79,6 +78,7 @@ module.exports = {
   SQLiteDatabase,
   UserDatabaseManager,
 };
+
 export { IUserRecord, UserRecord };
 export { DatabaseFactory };
 export { SQLiteDatabase, UserDatabaseManager };

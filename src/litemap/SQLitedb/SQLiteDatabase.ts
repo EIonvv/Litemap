@@ -11,6 +11,7 @@ class SQLiteDatabase {
       driver: Database,
     });
     this.initialize();
+    this.initializeItems();
   }
 
   private async initialize(): Promise<void> {
@@ -23,6 +24,18 @@ class SQLiteDatabase {
         value TEXT
       );
       CREATE INDEX IF NOT EXISTS idx_key ON users(key);
+    `);
+    this.initialized = true;
+  }
+
+  private async initializeItems(): Promise<void> {
+    const db = await this.dbPromise;
+    await db.exec(`
+      CREATE TABLE IF NOT EXISTS items (
+        key TEXT PRIMARY KEY,
+        value TEXT
+      );
+      CREATE INDEX IF NOT EXISTS idx_item_key ON items(key);
     `);
     this.initialized = true;
   }
@@ -40,7 +53,7 @@ class SQLiteDatabase {
     ]);
   }
 
-  async batchSet(records: { key: string; value: any }[]): Promise<void> {
+  async batchSetUsers(records: { key: string; value: any }[]): Promise<void> {
     if (!records.length) return;
 
     const db = await this.dbPromise;
@@ -50,6 +63,26 @@ class SQLiteDatabase {
         const valueString = JSON.stringify(value);
         await db.run(
           "INSERT OR REPLACE INTO users (key, value) VALUES (?, ?)",
+          [key, valueString]
+        );
+      }
+      await db.run("COMMIT");
+    } catch (error) {
+      await db.run("ROLLBACK");
+      throw error;
+    }
+  }
+
+  // batch set for items
+  async batchSetItems(records: { key: string; value: any }[]): Promise<void> {
+    if (!records.length) return;
+    const db = await this.dbPromise;
+    await db.run("BEGIN TRANSACTION");
+    try {
+      for (const { key, value } of records) {
+        const valueString = JSON.stringify(value);
+        await db.run(
+          "INSERT OR REPLACE INTO items (key, value) VALUES (?, ?)",
           [key, valueString]
         );
       }
